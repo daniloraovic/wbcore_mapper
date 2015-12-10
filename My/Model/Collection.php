@@ -148,4 +148,24 @@ class My_Model_Collection implements Iterator
 			
 		}
 	}
+
+	/**
+	 * converts result in Map key with id, value with domain
+	 */
+	public function getMap()
+	{
+	    $map = null;
+	    if ( $this->getTotal() > 0){
+	        $map = array();
+	        while ($this->valid()){
+	            $domain = $this->next();
+	            $map[$domain->getId()] = $domain;
+	        }
+	        $this->rewind();
+	         
+	    }
+		return $map;
+		
+	}	
+
 }
