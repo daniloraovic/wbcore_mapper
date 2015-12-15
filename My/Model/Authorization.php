@@ -1,7 +1,8 @@
-<?php 
+<?php
+
 class My_Model_Authorization
 {
-	public function authorize() {
-		
-	}
+
+    public function authorize()
+    {}
 }
