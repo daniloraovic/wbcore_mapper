@@ -1,5 +1,7 @@
 <?php
-// @todo deprecated ?
+
+namespace Bgw\Core;
+
 class My_Model_Selection
 {
 

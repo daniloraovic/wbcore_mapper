@@ -1,5 +1,8 @@
 <?php
 
+namespace Bgw\Core;
+
+
 abstract class My_Model_Mapper_Mysql_ClientData_Abstract extends My_Model_Mapper_Mysql
 {
 

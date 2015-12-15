@@ -1,5 +1,8 @@
 <?php
 
+namespace Bgw\Core;
+
+
 /**
  * Identity Map and Unit Of Work design pattern
  *
