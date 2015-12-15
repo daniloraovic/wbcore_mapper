@@ -1,5 +1,8 @@
 <?php
 
+namespace Bgw\Core;
+
+
 abstract class My_Model_Abstract
 {
 

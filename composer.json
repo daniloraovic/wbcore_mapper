@@ -5,7 +5,11 @@
         {
             "name": "Danilo Raovic",
             "email": "danilo.raovic@bitgear.rs"
-        }
+        },
+        {
+            "name": "Milos Ilic",
+            "email": "milos.ilic@bitgear.rs"
+        }        
     ],
     "minimum-stability": "dev",
     "require": {

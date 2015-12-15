@@ -1,5 +1,8 @@
 <?php
 
+namespace Bgw\Core;
+
+
 class My_Model_Mapper_Mysql extends My_Model_Mapper
 {
 

@@ -1,5 +1,8 @@
 <?php
 
+namespace Bgw\Core;
+
+
 class My_Model_Mapper_Mysql_IdentityObject extends My_Model_Mapper_IdentityObject
 {
     // add an equality operator to the current field

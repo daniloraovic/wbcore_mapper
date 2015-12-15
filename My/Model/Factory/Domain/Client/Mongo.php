@@ -1,5 +1,8 @@
 <?php
 
+namespace Bgw\Core;
+
+
 class My_Model_Factory_Domain_Client_Mongo extends My_Model_Factory_Domain
 {
 
