@@ -1,5 +1,8 @@
 <?php
 
+namespace Bgw\Core;
+
+
 abstract class My_Model_Mapper_Mongo_ClientData_Abstract extends My_Model_Mapper_Mongo
 {
 

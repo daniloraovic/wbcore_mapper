@@ -1,5 +1,8 @@
 <?php
 
+namespace Bgw\Core;
+
+
 class My_Db extends Zend_Db
 {
 

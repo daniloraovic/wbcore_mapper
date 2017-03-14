@@ -1,5 +1,8 @@
 <?php
 
+namespace Bgw\Core;
+
+
 class My_Model_Mapper_Mysql extends My_Model_Mapper
 {
 
@@ -149,7 +152,71 @@ class My_Model_Mapper_Mysql extends My_Model_Mapper
         
         return $this->_connection->insert($this->_tablename, $data);
     }
+    
+    public function insertOrUpdate($obj){
+        if ($obj instanceof My_Model_Domain) {
+            if ($obj->getClientIdUnsetFromData()) {
+                $obj->unsetField($obj->getClientIdKey());
+            }
+            $data = $obj->getData();
+        } elseif (is_array($obj)) {
+            $data = $obj;
+        } else {
+            throw new Exception("Unsupported datatype used in insert", - 1001);
+        }
+    
+    
+        // extract and quote col names from the array keys
+        $cols = array();
+        $vals = array();
+        $i = 0;
+        foreach ($data as $col => $val) {
+            $cols[] = $this->_connection->quoteIdentifier($col, true);
+            if ($val instanceof Zend_Db_Expr) {
+                $vals[] = $val->__toString();
+                unset($data[$col]);
+            } else {
+                if ($this->_connection->supportsParameters('positional')) {
+                    $vals[] = '?';
+                } else {
+                    if ($this->_connection->supportsParameters('named')) {
+                        unset($data[$col]);
+                        $data[':col'.$i] = $val;
+                        $vals[] = ':col'.$i;
+                        $i++;
+                    } else {
+                        /** @see Zend_Db_Adapter_Exception */
+                        require_once 'Zend/Db/Adapter/Exception.php';
+                        throw new Zend_Db_Adapter_Exception(get_class($this->_connection) ." doesn't support positional or named binding");
+                    }
+                }
+            }
+        }
+    
+        // build the statement
+        $sql = "INSERT INTO "
+            . $this->_connection->quoteIdentifier($this->_tablename, true)
+            . ' (' . implode(', ', $cols) . ') '
+                . 'VALUES (' . implode(', ', $vals) . ')';
 
+                $duplicate=" ON DUPLICATE KEY UPDATE ";
+                    foreach ($cols as $index => $col) {
+                       $duplicate .=  $col . " = " .$vals[$index] ."," ;
+                    }
+                    $duplicate = rtrim($duplicate, ",");
+                    $sql.=$duplicate;
+                    // execute the statement and return the number of affected rows
+                    if ($this->_connection->supportsParameters('positional')) {
+                        $data = array_values($data);
+                    }
+                    //because we have two 
+                    $data = array_merge($data, $data);
+                    $stmt = $this->_connection->query($sql, $data);
+                    $result = $stmt->rowCount();
+                    return $result;
+    
+    }
+    
     public function lastInsertId()
     {
         return $this->_connection->lastInsertId();
