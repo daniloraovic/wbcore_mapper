@@ -145,6 +145,7 @@ class My_Model_Collection implements Iterator
     {
         $map = null;
         if ($this->getTotal() > 0) {
+            $this->rewind();
             $map = array();
             while ($this->valid()) {
                 $domain = $this->next();
